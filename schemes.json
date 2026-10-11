@@ -1,0 +1,130 @@
+{
+  "_readme": "Seed list of US federal benefit programs for the hackathon demo. Each entry lists the OFFICIAL source pages to feed into Writer's Knowledge Graph (download the PDFs/HTML from these before the hackathon in case Wi-Fi is bad) and the deterministic eligibility rule id implemented in server/rules.py. VERIFY all thresholds against the live .gov source before the demo — poverty guidelines update every January and some figures here are illustrative placeholders.",
+  "programs": [
+    {
+      "id": "snap",
+      "name": "SNAP (Supplemental Nutrition Assistance Program)",
+      "agency": "USDA Food and Nutrition Service",
+      "official_sources": [
+        "https://www.fns.usda.gov/snap/recipient/eligibility",
+        "https://www.fns.usda.gov/snap/allotment/COLA",
+        "https://www.fns.usda.gov/snap/apply"
+      ],
+      "rule_id": "snap_fpl_130",
+      "documents_needed": [
+        "Photo ID",
+        "Proof of residency (utility bill or lease)",
+        "Proof of income (pay stubs, last 30 days)",
+        "Social Security numbers for all household members",
+        "Proof of expenses (rent, utilities, childcare) if claiming deductions"
+      ],
+      "apply_url": "https://www.fns.usda.gov/snap/apply"
+    },
+    {
+      "id": "medicaid",
+      "name": "Medicaid",
+      "agency": "CMS / State Medicaid agencies",
+      "official_sources": [
+        "https://www.medicaid.gov/medicaid/eligibility/index.html",
+        "https://www.healthcare.gov/medicaid-chip/"
+      ],
+      "rule_id": "medicaid_fpl_state_variable",
+      "documents_needed": [
+        "Photo ID",
+        "Proof of income",
+        "Proof of state residency",
+        "Immigration/citizenship status documents (if applicable)",
+        "Social Security number"
+      ],
+      "apply_url": "https://www.healthcare.gov/medicaid-chip/",
+      "notes": "Eligibility threshold varies significantly by state and expansion status. Treat as 'likely eligible, state rules apply' rather than a hard yes/no."
+    },
+    {
+      "id": "ssi",
+      "name": "SSI (Supplemental Security Income)",
+      "agency": "Social Security Administration",
+      "official_sources": [
+        "https://www.ssa.gov/ssi/eligibility.htm",
+        "https://www.ssa.gov/ssi/text-resources-ussi.htm"
+      ],
+      "rule_id": "ssi_income_asset_disability_age",
+      "documents_needed": [
+        "Birth certificate / proof of age",
+        "Social Security number",
+        "Proof of income and resources",
+        "Medical evidence of disability (if applying on disability/blindness basis)",
+        "Immigration status documents (if applicable)"
+      ],
+      "apply_url": "https://www.ssa.gov/benefits/ssi/"
+    },
+    {
+      "id": "liheap",
+      "name": "LIHEAP (Low Income Home Energy Assistance Program)",
+      "agency": "HHS Office of Community Services",
+      "official_sources": [
+        "https://www.acf.hhs.gov/ocs/programs/liheap",
+        "https://www.acf.hhs.gov/ocs/liheap-eligibility-criteria"
+      ],
+      "rule_id": "liheap_fpl_150",
+      "documents_needed": [
+        "Proof of income (last 12 months or last 3 months, varies by state)",
+        "Recent energy bill",
+        "Proof of residency",
+        "Social Security numbers for household members"
+      ],
+      "apply_url": "https://www.acf.hhs.gov/ocs/liheap-help"
+    },
+    {
+      "id": "wic",
+      "name": "WIC (Women, Infants, and Children)",
+      "agency": "USDA Food and Nutrition Service",
+      "official_sources": [
+        "https://www.fns.usda.gov/wic/wic-eligibility-requirements",
+        "https://www.fns.usda.gov/wic/how-to-apply"
+      ],
+      "rule_id": "wic_fpl_185_categorical",
+      "documents_needed": [
+        "Proof of identity",
+        "Proof of residency",
+        "Proof of income (or proof of SNAP/Medicaid/TANF enrollment for automatic eligibility)",
+        "Proof of pregnancy or child's age/immunization record"
+      ],
+      "apply_url": "https://www.fns.usda.gov/wic/how-to-apply"
+    },
+    {
+      "id": "eitc",
+      "name": "EITC (Earned Income Tax Credit)",
+      "agency": "IRS",
+      "official_sources": [
+        "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit-eitc",
+        "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables"
+      ],
+      "rule_id": "eitc_income_by_household",
+      "documents_needed": [
+        "Filed or to-be-filed federal tax return",
+        "Social Security numbers for filer, spouse, and qualifying children",
+        "Proof of earned income (W-2s, 1099s)"
+      ],
+      "apply_url": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit-eitc"
+    },
+    {
+      "id": "section8",
+      "name": "Housing Choice Voucher Program (Section 8)",
+      "agency": "HUD / local Public Housing Agencies",
+      "official_sources": [
+        "https://www.hud.gov/topics/housing_choice_voucher_program_section_8",
+        "https://www.hud.gov/program_offices/public_indian_housing/programs/hcv/about/fact_sheet"
+      ],
+      "rule_id": "section8_ami_30_50_80",
+      "documents_needed": [
+        "Photo ID for all adult household members",
+        "Proof of income for all household members",
+        "Social Security numbers",
+        "Proof of citizenship or eligible immigration status",
+        "Rental history / current lease (if applicable)"
+      ],
+      "apply_url": "https://www.hud.gov/topics/rental_assistance/phprog",
+      "notes": "Local PHAs often have waitlists and their own income limits (30/50/80% of Area Median Income). Treat result as 'likely income-eligible; check local PHA waitlist status'."
+    }
+  ]
+}

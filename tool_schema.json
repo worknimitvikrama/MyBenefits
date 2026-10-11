@@ -1,0 +1,24 @@
+{
+  "_readme": "Paste this into Writer AI Studio's Agent Builder when you add a Custom Tool / Function for the eligibility checker. It tells the agent's tool-calling layer what the function accepts and when to call it. Point the tool's endpoint at wherever you deploy server/main.py (see server/README in comments), e.g. https://your-app.onrender.com/check-eligibility.",
+  "type": "function",
+  "function": {
+    "name": "check_eligibility",
+    "description": "Deterministically checks a household's likely eligibility for a list of US federal benefit programs (SNAP, Medicaid, SSI, LIHEAP, WIC, EITC, Section 8) based on structured household data. Always call this instead of guessing eligibility from the knowledge graph text alone — the knowledge graph should be used to explain rules and cite sources, but the yes/no/maybe determination must come from this tool.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "household_size": { "type": "integer" },
+        "state": { "type": "string" },
+        "monthly_household_income": { "type": "number" },
+        "ages": { "type": "array", "items": { "type": "integer" } },
+        "has_children_under_5": { "type": "boolean" },
+        "is_pregnant_or_postpartum": { "type": "boolean" },
+        "has_disability": { "type": "boolean" },
+        "is_65_or_older": { "type": "boolean" },
+        "employment_status": { "type": "string" },
+        "already_enrolled_programs": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["household_size", "monthly_household_income"]
+    }
+  }
+}

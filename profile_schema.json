@@ -1,0 +1,58 @@
+{
+  "_readme": "This is the JSON schema the Intake Parser step in Writer AI Studio should produce from the user's free-text (any language) description. Paste this into the 'Structured Output' / JSON schema field of that step in Agent Builder. Field names are also used as the payload contract for the eligibility tool (server/main.py).",
+  "name": "household_profile",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "household_size": {
+        "type": "integer",
+        "description": "Total number of people in the household, including the applicant."
+      },
+      "state": {
+        "type": "string",
+        "description": "Two-letter US state or territory code, e.g. 'CA', 'TX'. Null if not stated."
+      },
+      "monthly_household_income": {
+        "type": "number",
+        "description": "Total gross monthly income for the whole household in USD, converted/summed if multiple sources were mentioned."
+      },
+      "income_period_note": {
+        "type": "string",
+        "description": "Free text noting how income was described (e.g. 'annual salary $32,000', 'weekly $600') so the app can show its math."
+      },
+      "ages": {
+        "type": "array",
+        "items": { "type": "integer" },
+        "description": "Ages of household members if mentioned, especially children, seniors 65+."
+      },
+      "has_children_under_5": { "type": "boolean" },
+      "is_pregnant_or_postpartum": { "type": "boolean" },
+      "has_disability": { "type": "boolean" },
+      "is_65_or_older": { "type": "boolean" },
+      "is_veteran": { "type": "boolean" },
+      "employment_status": {
+        "type": "string",
+        "enum": ["employed", "unemployed", "self_employed", "retired", "unable_to_work", "unknown"]
+      },
+      "citizenship_or_immigration_status": {
+        "type": "string",
+        "description": "As stated by user, e.g. 'US citizen', 'green card holder', 'undocumented', 'unknown'. Never used to deny help outright — many programs have exceptions (e.g. emergency Medicaid, WIC for any resident) — always route to official source for exact rule."
+      },
+      "already_enrolled_programs": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Programs the user says they already receive, e.g. ['SNAP', 'Medicaid'] — used for categorical/automatic eligibility in WIC etc."
+      },
+      "language": {
+        "type": "string",
+        "description": "Detected language of the user's message, ISO 639-1 code, e.g. 'es', 'en', 'vi'."
+      },
+      "missing_critical_fields": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List field names here that are required for a program check but were NOT stated by the user, so the assistant can ask one clarifying question instead of guessing."
+      }
+    },
+    "required": ["household_size", "monthly_household_income", "language"]
+  }
+}
